@@ -1,0 +1,35 @@
+{% extends 'employee/base.html' %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-4">
+  <h1 class="text-2xl font-bold">Employees</h1>
+  <a href="{% url 'employee_add' %}" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-500 transition">Add Employee</a>
+</div>
+
+<div class="overflow-x-auto">
+  <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+    <thead class="bg-purple-600 text-white">
+      <tr>
+        <th class="py-3 px-4 text-left">Name</th>
+        <th class="py-3 px-4 text-left">Email</th>
+        <th class="py-3 px-4 text-left">Phone</th>
+        <th class="py-3 px-4 text-left">Designation</th>
+        <th class="py-3 px-4 text-left">Salary</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for emp in employees %}
+      <tr class="border-b hover:bg-purple-50 transition">
+        <td class="py-2 px-4">{{ emp.first_name }} {{ emp.last_name }}</td>
+        <td class="py-2 px-4">{{ emp.email }}</td>
+        <td class="py-2 px-4">{{ emp.phone }}</td>
+        <td class="py-2 px-4">{{ emp.designation }}</td>
+        <td class="py-2 px-4">₹{{ emp.salary }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5" class="text-center py-4">No Employees Found</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

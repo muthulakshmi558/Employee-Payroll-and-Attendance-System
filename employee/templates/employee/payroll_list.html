@@ -1,0 +1,40 @@
+{% extends 'employee/base.html' %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Payroll</h1>
+
+<div class="flex justify-end mb-4">
+  <a href="{% url 'export_payroll_excel' %}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 transition">Export Excel</a>
+</div>
+
+<div class="overflow-x-auto">
+  <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+    <thead class="bg-purple-600 text-white">
+      <tr>
+        <th class="py-3 px-4">Employee</th>
+        <th class="py-3 px-4">Month</th>
+        <th class="py-3 px-4">Days Present</th>
+        <th class="py-3 px-4">Days Absent</th>
+        <th class="py-3 px-4">Salary Paid</th>
+        <th class="py-3 px-4">Export PDF</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pay in payrolls %}
+      <tr class="border-b hover:bg-purple-50 transition">
+        <td class="py-2 px-4">{{ pay.employee }}</td>
+        <td class="py-2 px-4">{{ pay.month|date:"F Y" }}</td>
+        <td class="py-2 px-4">{{ pay.days_present }}</td>
+        <td class="py-2 px-4">{{ pay.days_absent }}</td>
+        <td class="py-2 px-4">₹{{ pay.salary_paid }}</td>
+        <td class="py-2 px-4">
+          <a href="{% url 'export_payroll_pdf' pay.id %}" class="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-500 transition">PDF</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6" class="text-center py-4">No Payroll Found</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

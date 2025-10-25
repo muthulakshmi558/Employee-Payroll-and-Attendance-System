@@ -1,0 +1,28 @@
+{% extends 'employee/base.html' %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Attendance</h1>
+
+<div class="overflow-x-auto">
+  <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+    <thead class="bg-purple-600 text-white">
+      <tr>
+        <th class="py-3 px-4">Employee</th>
+        <th class="py-3 px-4">Date</th>
+        <th class="py-3 px-4">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for att in attendance %}
+      <tr class="border-b hover:bg-purple-50 transition">
+        <td class="py-2 px-4">{{ att.employee }}</td>
+        <td class="py-2 px-4">{{ att.date }}</td>
+        <td class="py-2 px-4">{{ att.get_status_display }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="3" class="text-center py-4">No Records Found</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
